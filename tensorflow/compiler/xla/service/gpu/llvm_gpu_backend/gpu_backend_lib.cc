@@ -798,6 +798,7 @@ StatusOr<std::vector<uint8>> CompileToHsaco(
     if(pos!=std::string::npos)
       str=str.substr(pos+1);
   }
+  str+=hlo_module_config.compilation_cache_key();
   {
     tensorflow::profiler::TraceMe activity(
         [&] { return absl::StrCat("Compiling IR", module->getName().str()); },
@@ -815,7 +816,7 @@ StatusOr<std::vector<uint8>> CompileToHsaco(
       return hsaco;
     }
     VLOG(1)<<"HSACO cache miss";
-    bool dump_lls=false;
+    bool dump_lls=true;
     if(dump_lls) {
       static int hsaco_count=0;
       char name[256];
