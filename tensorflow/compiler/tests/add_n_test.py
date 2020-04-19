@@ -81,4 +81,6 @@ class XlaAddNTest(xla_test.XLATestCase):
 
 
 if __name__ == "__main__":
+  os.environ["TF_XLA_FLAGS"] = ("--tf_xla_auto_jit=2 " +
+                                os.environ.get("TF_XLA_FLAGS", ""))
   test.main()
